@@ -70,6 +70,14 @@ class LinkedList:
         self.tail.prev.next = self.tail.next
         self.tail = self.tail.prev
 
+    def delete_at_head(self):
+        if self.head is self.tail:
+            self.head = self.tail = None
+            return
+
+        self.head.next.prev = None
+        self.head = self.head.next
+
     def __str__(self):
         curr = self.head
         result = ""
