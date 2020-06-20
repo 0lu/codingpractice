@@ -87,6 +87,9 @@ class Trie:
 
 trie = Trie()
 trie.insert("boy")
+trie.insert("girl")
+trie.insert("boyer")
+trie.insert("girlfriend")
 print(trie.search("boy"))
 trie.delete("boy")
 print(trie.search("boy"))
