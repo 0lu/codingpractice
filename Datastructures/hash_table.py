@@ -71,7 +71,10 @@ class HashTable:
             prev = curr
             curr = curr.next
 
-        prev.next = curr.next
+        if not prev:
+            self.hashtable[position] = curr.next
+        else:
+            prev.next = curr.next
         self.capacity -= 1
 
     def find(self, key):
