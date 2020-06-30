@@ -1,0 +1,18 @@
+Task 0:
+O(1)
+
+Task 1:
+O(2n) = O(n)
+
+Task 2:
+O(2n) = O(n)
+
+Task 3:
+A:
+O(n^3)
+
+B:
+O(n^3)
+
+Task4:
+O(2n + nlogn) = O(nlogn)
