@@ -3,7 +3,8 @@ get - 0(1)
 set - 0(1)
 
 Space complexity:
-O(1) - no extra space is assigned
+O(n) - grows as the number of items grow
+n = capacity of cache
 
 I used a hashtable to locate elements in O(1) and a doubly linked list to 
 keep the usage. Whenever an item is accessed it is placed at the head of the 

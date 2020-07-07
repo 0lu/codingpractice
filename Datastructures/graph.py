@@ -16,11 +16,11 @@ class Graph(metaclass=ABCMeta):
             set_list.remove(vertex)
 
     @abstractmethod
-    def add_edge(self, source, destination):
+    def add_edge(self, source, destination, weight=None):
         pass
 
     @abstractmethod
-    def remove_edge(self, source, destination):
+    def remove_edge(self, source, destination, weight=None):
         pass
 
     def __repr__(self):
@@ -31,28 +31,44 @@ class Graph(metaclass=ABCMeta):
         return result
 
     def __str__(self):
-        self.__repr__()
+        return self.__repr__()
 
 
-class DirectedGraph(Graph):
-    def add_edge(self, source, destination):
+class UnweightedDirectedGraph(Graph):
+    def add_edge(self, source, destination, weight=None):
         self.edges[source].add(destination)
 
-    def remove_edge(self, source, destination):
+    def remove_edge(self, source, destination, weight=None):
         self.edges[source].remove(destination)
 
 
-class UndirectedGraph(Graph):
-    def add_edge(self, source, destination):
+class UnweightedUndirectedGraph(Graph):
+    def add_edge(self, source, destination, weight=None):
         self.edges[source].add(destination)
         self.edges[destination].add(source)
 
-    def remove_edge(self, source, destination):
+    def remove_edge(self, source, destination, weight=None):
         self.edges[source].remove(destination)
         self.edges[destination].remove(source)
 
+class WeightedDirectedGraph(Graph):
+    def add_edge(self, source, destination, weight=None):
+        self.edges[source].add((destination, weight))
 
-graph = UndirectedGraph()
+    def remove_edge(self, source, destination, weight=None):
+        self.edges[source].remove((destination, weight))
+
+class WeightedUndirectedGraph(Graph):
+    def add_edge(self, source, destination, weight=None):
+        self.edges[source].add((destination, weight))
+        self.edges[destination].add((source, weight))
+
+    def remove_edge(self, source, destination, weight=None):
+        self.edges[source].remove((destination, weight))
+        self.edges[destination].remove((source, weight))
+
+
+graph = UnweightedUndirectedGraph()
 graph.add_vertex(0)
 graph.add_vertex(1)
 graph.add_vertex(2)

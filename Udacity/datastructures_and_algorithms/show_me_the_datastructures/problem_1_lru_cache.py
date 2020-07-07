@@ -123,3 +123,18 @@ print(our_cache.get("s"))
 our_cache.set(1,2)
 print(our_cache.get(1))
 #-1
+
+our_cache = LRU_Cache(3)
+print(our_cache.get("s"))
+#-1
+
+our_cache.set("a", 1)
+our_cache.set("b", 2)
+our_cache.set("c", 3)
+our_cache.set("d", 4)
+print(our_cache.get("a"))
+# -1
+
+print(our_cache.get("c"))
+# 3
+

@@ -27,4 +27,8 @@ l2 = length of list 2
 Since a set is used to keep track of seen items, the space complexity
 is the total size required for the set in both cases
 
+I used a set to keep track of seen items. Once an item is seen in the 
+set, it is added to the list depending on whether we are computing
+intersection or union
+
 
