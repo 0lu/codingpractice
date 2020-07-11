@@ -1,7 +1,9 @@
+from Datastructures.djikstra import NegativeCycleDetectedException
 from Datastructures.graph import WeightedUndirectedGraph, WeightedDirectedGraph
 
 
 def shortest_path(source, destination, graph):
+
     parents = {}
     distances = {}
 
@@ -12,32 +14,30 @@ def shortest_path(source, destination, graph):
         else:
             distances[vertex] = float("inf")
 
+    for _ in range(len(graph.vertices) - 1):
 
-    for i in range(len(graph.vertices) - 1):
         for vertex in graph.vertices:
-            for neighbor, weights in graph.edges[vertex]:
-                calculated_distance = distances[vertex] + weights
-                if calculated_distance < distances[neighbor]:
-                    distances[neighbor] = calculated_distance
+            for neighbor, weight in graph.edges[vertex]:
+                calc_distance = distances[vertex] + weight
+                if calc_distance < distances[neighbor]:
+                    distances[neighbor] = calc_distance
                     parents[neighbor] = vertex
 
     for vertex in graph.vertices:
-        for neighbor, weights in graph.edges[vertex]:
-            if distances[vertex] + weights < distances[neighbor]:
-                print("negative cycle detected")
-                return
+        for neighbor, weight in graph.edges[vertex]:
+            if distances[vertex] + weight < distances[neighbor]:
+                raise NegativeCycleDetectedException("Negative cycle detected")
 
-    result = []
-    result.append(destination)
 
+    results = [destination]
     curr = parents[destination]
 
     while curr is not None:
-        result.append(curr)
+        results.append(curr)
         curr = parents[curr]
 
-    result = result[::-1]
-    return result, distances[destination]
+    return results[::-1], distances[destination]
+
 
 g = WeightedUndirectedGraph()
 g.add_vertex(0)

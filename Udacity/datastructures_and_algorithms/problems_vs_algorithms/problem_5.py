@@ -84,7 +84,7 @@ class TrieNode:
     def suffixes_helper(self, path, result):
         if self.is_end_word:
             result.append("".join(path))
-        for i,node in enumerate(self.map):
+        for i, node in enumerate(self.map):
             if node:
                 path.append(chr(i + ord("a")))
                 node.suffixes_helper(path, result)
@@ -108,21 +108,15 @@ wordList = [
 for word in wordList:
     MyTrie.insert(word)
 
+print(MyTrie.find("fun").is_end_word)
+#True
 
-# In[4]:
+print(MyTrie.find("func").is_end_word)
+#False
 
+print(MyTrie.find("").is_end_word)
+#False
 
-from ipywidgets import widgets
-from IPython.display import display
-from ipywidgets import interact
-def f(prefix):
-    if prefix != '':
-        prefixNode = MyTrie.find(prefix)
-        if prefixNode:
-            print('\n'.join(prefixNode.suffixes()))
-        else:
-            print(prefix + " not found")
-    else:
-        print('')
-interact(f,prefix='');
-
+MyTrie.insert("")
+print(MyTrie.find("").is_end_word)
+#True

@@ -46,3 +46,15 @@ test_function([])
 
 test_function([2,1,0,2,1,0,1,0,1,0,0, 1])
 #Pass
+
+test_function([2,2,2,2,2,2,2])
+#Pass
+
+test_function([1,1,1,1,1,1,1])
+#Pass
+
+test_function([0,0,0,0,0,0])
+#Pass
+
+test_function([0])
+#Pass

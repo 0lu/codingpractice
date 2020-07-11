@@ -1,6 +1,11 @@
 from Datastructures.graph import WeightedUndirectedGraph, WeightedDirectedGraph
 import heapq
 
+
+class NegativeCycleDetectedException(Exception):
+    pass
+
+
 def shortest_path(source, destination, graph):
     parents = {}
     distances = {}
@@ -12,31 +17,31 @@ def shortest_path(source, destination, graph):
             distances[vertex] = 0
         else:
             distances[vertex] = float("inf")
-
-    heapq.heappush(heap, (0, source))
-
+    
+    heapq.heappush(heap, (distances[source], source))
+    
     while heap:
         distance, vertex = heapq.heappop(heap)
 
+        if vertex == destination:
+            break
+        
         for neighbor, weight in graph.edges[vertex]:
-            distance_calculated = distances[vertex] + weight
-            if distance_calculated < 0:
-                print("negative edge detected")
-            if distance_calculated < distances[neighbor]:
+            calc_dist = distances[vertex] + weight
+            if calc_dist < 0:
+                raise NegativeCycleDetectedException("negative cycle detected")
+            if calc_dist < distances[neighbor]:
+                distances[neighbor] = calc_dist
                 parents[neighbor] = vertex
-                distances[neighbor] = distance_calculated
                 heapq.heappush(heap, (distances[neighbor], neighbor))
 
-    result = []
-    result.append(destination)
+    result = [destination]
     curr = parents[destination]
-
     while curr is not None:
         result.append(curr)
         curr = parents[curr]
 
-    result = result[::-1]
-    return result, distances[destination]
+    return result[::-1], distances[destination]
 
 
 g = WeightedUndirectedGraph()

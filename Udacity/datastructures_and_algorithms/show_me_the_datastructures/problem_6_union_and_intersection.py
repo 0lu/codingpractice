@@ -60,6 +60,7 @@ def union(llist_1, llist_2):
 def intersection(llist_1, llist_2):
     # Your Solution Here
     seen = set()
+    seen2 = set()
     list3 = LinkedList()
     curr = llist_1.head
     while curr:
@@ -69,7 +70,8 @@ def intersection(llist_1, llist_2):
 
     curr = llist_2.head
     while curr:
-        if curr.value in seen:
+        if curr.value in seen and curr.value not in seen2:
+            seen2.add(curr.value)
             list3.append(curr.value)
         curr = curr.next
 
@@ -155,3 +157,22 @@ print(intersection(linked_list_3, linked_list_4))
 
 #
 #
+
+# Test case 1
+linked_list_1 = LinkedList()
+linked_list_2 = LinkedList()
+
+element_1 = [3, 2, 4, 35, 6, 65, 6, 4, 3, 21]
+element_2 = [6, 32, 4, 9, 6, 1, 11, 21, 1]
+
+for i in element_1:
+    linked_list_1.append(i)
+
+for i in element_2:
+    linked_list_2.append(i)
+
+print("Union:", union(linked_list_1, linked_list_2))
+print("Intersection:", intersection(linked_list_1, linked_list_2))
+
+#Union: 3 -> 2 -> 4 -> 35 -> 6 -> 65 -> 21 -> 32 -> 9 -> 1 -> 11 ->
+#Intersection: 6 -> 4 -> 21 ->

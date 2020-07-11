@@ -24,6 +24,18 @@ class LinkedList():
             self.head = node
             self.head.next.prev = self.head
 
+    def move_to_head(self, node):
+        if self.head == node:
+            return
+
+        node.prev.next = node.next
+        if node.next:
+            node.next.prev = node.prev
+
+        node.next = self.head
+        self.head.prev = node
+        self.head = node
+
     def delete_at_tail(self):
         if not self.tail:
             return
@@ -56,6 +68,7 @@ class LRU_Cache:
             return
         if key in self.map:
             self.map[key].value = value
+            self.list.move_to_head(self.map[key])
             return
 
         if len(self.map) >= self.size:
@@ -72,17 +85,20 @@ class LRU_Cache:
             return -1
 
         to_return = self.map[key]
+
         if to_return.prev:
             to_return.prev.next = to_return.next
         else:
             self.list.head = to_return.next
+
         if to_return.next:
             to_return.next.prev = to_return.prev
         else:
             self.list.tail = to_return.prev
 
         to_return.next = self.list.head
-        self.list.head.prev = to_return
+        if self.list.head:
+            self.list.head.prev = to_return
         self.list.head = to_return
 
         return to_return.value
@@ -137,4 +153,12 @@ print(our_cache.get("a"))
 
 print(our_cache.get("c"))
 # 3
+
+our_cache = LRU_Cache(5)
+our_cache.set(1, 1)
+print(our_cache.get(2))
+# returns -1
+our_cache.set(1, 11111)
+print(our_cache.get(1))
+# overriding a value, returns 11111
 

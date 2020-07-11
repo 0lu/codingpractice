@@ -8,7 +8,7 @@ to traversing a binary tree. where files are the leaf nodes and directories
 are parent nodes
 
 Space complexity:
-O(h) - where h is the number of directory levels. In the worse case, h = n
+O(h) - where h is the size of the resultant array
 
 Each recursive call is pushed to the stack and the maximum of the total number of recursive
 calls at any point is the space complexity.

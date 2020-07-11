@@ -25,6 +25,11 @@ def find_files(suffix, path):
 
 
 def find_files_helper(suffix, path, result):
+    if not os.path.isdir(path):
+        if path.endswith(suffix):
+            result.append(path)
+            return
+
     current_path_files = os.listdir(path)
     folders = [os.path.join(path, file) for file in current_path_files if os.path.isdir(os.path.join(path, file))]
     files = [os.path.join(path, file) for file in current_path_files if os.path.isfile(os.path.join(path, file))]
@@ -53,3 +58,7 @@ print(find_files("dslfjdsflsdjfwfipwjfwlkjfsdaklfjasfkdsjafiosdfjlsdkafjsdkfa ",
 
 print(find_files(".h", "testdir"))
 #['testdir/subdir3/subsubdir1/b.h', 'testdir/subdir5/a.h', 'testdir/subdir1/a.h', 'testdir/t1.h']
+
+path = "./solution/problem2/problem2.py"
+suffix = ".py"
+print(find_files(suffix, path))
