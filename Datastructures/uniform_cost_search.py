@@ -1,5 +1,4 @@
 import heapq
-
 from Datastructures.graph import WeightedUndirectedGraph
 
 
@@ -8,7 +7,6 @@ def shortest_path(source, destination, graph):
     parents = {source: None}
 
     frontier = []
-    explored = set()
 
     heapq.heappush(frontier, (0, source))
 
@@ -18,14 +16,11 @@ def shortest_path(source, destination, graph):
         if vertex == destination:
             continue
         for neighbor, weight in graph.edges[vertex]:
-            if neighbor not in explored:
-                calc_distance = distances[vertex] + weight
-                if neighbor not in distances or calc_distance < distances[neighbor]:
-                    distances[neighbor] = calc_distance
-                    parents[neighbor] = vertex
-                    heapq.heappush(frontier, (calc_distance, neighbor))
-
-        explored.add(vertex)
+            calc_distance = distances[vertex] + weight
+            if neighbor not in distances or calc_distance < distances[neighbor]:
+                distances[neighbor] = calc_distance
+                parents[neighbor] = vertex
+                heapq.heappush(frontier, (calc_distance, neighbor))
 
     results = [destination]
     curr = parents[destination]

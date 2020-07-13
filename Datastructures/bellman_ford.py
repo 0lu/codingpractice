@@ -28,7 +28,6 @@ def shortest_path(source, destination, graph):
             if distances[vertex] + weight < distances[neighbor]:
                 raise NegativeCycleDetectedException("Negative cycle detected")
 
-
     results = [destination]
     curr = parents[destination]
 

@@ -100,6 +100,35 @@ def quick_sort_helper(array, l, r):
     quick_sort_helper(array, pivot + 1, r)
 
 
+def heap_sort(array):
+    def heapify_max(array, start, end):
+        p_index = start
+        l_index = (2 * p_index) + 1
+        r_index = l_index + 1
+        left_child = array[l_index] if l_index <= end else None
+        right_child = array[r_index] if r_index <= end else None
+
+        highest_index = p_index
+
+        highest_index = l_index if left_child and left_child > array[highest_index] else highest_index
+        highest_index = r_index if right_child and right_child > array[highest_index] else highest_index
+
+        if highest_index != p_index:
+            array[highest_index], array[p_index] = array[p_index], array[highest_index]
+            heapify_max(array, highest_index, end)
+
+    def build_max_heap(array):
+        last_index = len(array) - 1
+        last_parent = last_index // 2
+        for i in range(last_parent, -1, -1):
+            heapify_max(array, i, last_index)
+
+    build_max_heap(array)
+    for i in range(len(array) - 1, 0, -1):
+        array[i], array[0] = array[0], array[i]
+        heapify_max(array, 0, i - 1)
+
+
 array = [4, 6, 7, 2, 0, 8]
 selection_sort(array)
 print(array)
@@ -118,4 +147,8 @@ print(array)
 
 array = [4, 6, 7, 2, 0, 8]
 quick_sort(array)
+print(array)
+
+array = [4, 6, 7, 2, 0, 8]
+heap_sort(array)
 print(array)
